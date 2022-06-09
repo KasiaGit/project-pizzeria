@@ -199,7 +199,8 @@
             }
           }
         }
-    
+        // multiply price by amount
+        price *= thisProduct.amountWidget.value;
         // update calculated price in the HTML
         thisProduct.priceElem.innerHTML = price;
 
@@ -209,6 +210,9 @@
       const thisProduct = this;
 
       thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
+      thisProduct.amountWidgetElem.addEventListener('updated', function(){
+        thisProduct.processOrder();
+      });
     }
 
   }
@@ -243,6 +247,7 @@
       // TODO: Add validation
       if(thisWidget.value !== newValue && !isNaN(newValue) && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax) {
         thisWidget.value = newValue;
+        thisWidget.announce();
       }
 
       thisWidget.input.value = thisWidget.value;
@@ -264,11 +269,15 @@
         thisWidget.setValue(thisWidget.value + 1);
        });
     }
+
+    announce(){
+      const thisWidget = this;
+
+      const event = new Event ('updated');
+      thisWidget.element.dispatchEvent(event);
+    }
   }
-
-
-
-
+  
   const app = {
 
     initMenu: function() {
