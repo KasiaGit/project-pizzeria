@@ -119,7 +119,7 @@
         
 
         /* if there is active product and it's not thisProduct.element, remove class active from it */
-        if(thisProduct.element != productActive){
+        if(productActive && thisProduct.element != productActive){
           productActive.classList.remove('active');
         }
 
@@ -208,7 +208,7 @@
     initAmountWidget() {
       const thisProduct = this;
 
-      thisProduct.amountWidget = new this.initAmountWidget(thisProduct.amountWidgetElem);
+      thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
     }
 
   }
@@ -232,22 +232,19 @@
       thisWidget.element = element;
       thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
       thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
-      thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
-      
+      thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease); 
     }
   
 
-    setValue(value){
+    setValue(value){ 
       const thisWidget = this;
       const newValue = parseInt(value);
 
       // TODO: Add validation
-      if(thisWidget.value !== newValue && !isNaN(newValue)) {
-      thisWidget.value = newValue;
-    
+      if(thisWidget.value !== newValue && !isNaN(newValue) && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax) {
+        thisWidget.value = newValue;
       }
 
-      thisWidget.value = newValue;
       thisWidget.input.value = thisWidget.value;
     }
 
@@ -255,22 +252,17 @@
       const thisWidget = this;
 
       thisWidget.input.addEventListener('change', function(event){
-        event.setValue();
-        thisWidget.value = newValue;
-        // console.log(newValue);
-        
-      } );
+        thisWidget.setValue(event.target.value);
+      });
 
       thisWidget.linkDecrease.addEventListener('click', function(event){
-        event.setValue();
-        thisWidget.value--
-       } );
+        thisWidget.setValue(thisWidget.value - 1);
+       });
 
 
-       thisWidget.linkIncreaseaddEventListener('click', function(event){
-        event.setValue();
-        thisWidget.value++
-       } );
+       thisWidget.linkIncrease.addEventListener('click', function(event){
+        thisWidget.setValue(thisWidget.value + 1);
+       });
     }
   }
 
@@ -312,3 +304,4 @@
   app.init();
   
 }
+
