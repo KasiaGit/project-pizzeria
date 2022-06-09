@@ -64,7 +64,7 @@
       thisProduct.getElements();
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
-      // thisProduct.amountWidget();
+      thisProduct.initAmountWidget();
       thisProduct.processOrder();
 
       // console.log('new Product:', thisProduct);
@@ -96,14 +96,13 @@
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
-      // thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);??? 
+      thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
     }
 
     initAccordion () {
       const thisProduct = this;
 
       /* find the clickable trigger (the element that should react to clicking) */
-      // const clickableTrigger = thisProduct.element.querySelector('.product.active'); - Nie działa :(
       const clickableTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
 
       /* START: add event listener to clickable trigger on event click */
@@ -115,7 +114,7 @@
         event.preventDefault;
 
       /* find active product (product that has active class) */
-      const productActive = document.querySelector(classNames.menuProduct.classActive);
+      const productActive = document.querySelector('.product.active');
       // console.log(productActive);
         
 
@@ -192,62 +191,90 @@
             
             if(optionImage) {
               if(optionSelected) {
-                optionImage.classList.add(classNames.menuProduct.imageVisible)
+                optionImage.classList.add(classNames.menuProduct.imageVisible);
               }
               else {
-                optionImage.classList.remove(classNames.menuProduct.imageVisible)
+                optionImage.classList.remove(classNames.menuProduct.imageVisible);
               }
             }
           }
         }
-      
+    
         // update calculated price in the HTML
         thisProduct.priceElem.innerHTML = price;
 
       }
 
-  //   initAmountWidget() {
-  //     const thisProduct = this;
+    initAmountWidget() {
+      const thisProduct = this;
 
-  //       thisProduct.amountWidget = new this.amountWidget(thisProduct.amountWidgetElem);
-  // }
+      thisProduct.amountWidget = new this.initAmountWidget(thisProduct.amountWidgetElem);
+    }
+
+  }
+
+  class AmountWidget {
+    constructor(element) {
+
+      const thisWidget = this;
+      thisWidget.getElements(element);
+      thisWidget.setValue(thisWidget.input.value);
+      thisWidget.initActions();
+
+      console.log('AmountWidget:', thisWidget);
+      console.log('constructor arguments:', element);
+    }
 
 
-  // class AmountWidget{
-  //   constructor(element) {
-  //     const thisWidget = this;
-  // thisWidget.getElements(element);
-
-  //     console.log('AmountWidget:', thisWidget);
-  //     console.log('constructor arguments:', element);
-  // //   }
-
-
-  // getElements(element){
-  //   const thisWidget = this;
+    getElements(element){
+      const thisWidget = this;
   
-  //   thisWidget.element = element;
-  //   thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
-  //   thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
-  //   thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
-  // }
+      thisWidget.element = element;
+      thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
+      thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
+      thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+      
+    }
+  
 
-  // seValue(value){
-  //   const thisWidget = this;
+    setValue(value){
+      const thisWidget = this;
+      const newValue = parseInt(value);
 
-  //   const newValue = parseInt(value);
+      // TODO: Add validation
+      if(thisWidget.value !== newValue && !isNaN(newValue)) {
+      thisWidget.value = newValue;
+    
+      }
 
-  //   // TODO: Add validation
+      thisWidget.value = newValue;
+      thisWidget.input.value = thisWidget.value;
+    }
 
-  //   thisWidget.value = newValue;
-  //   thisWidget.input.value = thisWidget.value;
-  // }
-  //   }
+    initActions(){
+      const thisWidget = this;
+
+      thisWidget.input.addEventListener('change', function(event){
+        event.setValue();
+        thisWidget.value = newValue;
+        // console.log(newValue);
+        
+      } );
+
+      thisWidget.linkDecrease.addEventListener('click', function(event){
+        event.setValue();
+        thisWidget.value--
+       } );
 
 
+       thisWidget.linkIncreaseaddEventListener('click', function(event){
+        event.setValue();
+        thisWidget.value++
+       } );
+    }
+  }
 
 
-}
 
 
   const app = {
