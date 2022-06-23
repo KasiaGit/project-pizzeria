@@ -411,6 +411,10 @@
       thisCart.dom.deliveryFee.innerHTML = deliveryFee;
       thisCart.dom.subtotalPrice.innerHTML = subtotalPrice;
       thisCart.dom.totalNumber.innerHTML = totalNumber;
+
+      for(const elem of thisCart.dom.totalPrice) {
+        elem.innerHTML = thisCart.totalPrice;
+      }
     } 
 
     remove(product) {
@@ -456,7 +460,7 @@
 
       thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.dom.amountWidget);
       thisCartProduct.dom.amountWidget.addEventListener('updated', function(){
-        thisCartProduct.amount = thisCartProduct.amountWidget;
+        thisCartProduct.amount = thisCartProduct.amountWidget.value;
         thisCartProduct.price = thisCartProduct.priceSingle * thisCartProduct.amount;
       });
     }
