@@ -499,8 +499,8 @@
       const thisApp = this;
       // const testProduct = new Product();
       // console.log('testProduct:', testProduct);
-      for(let productData in thisApp.data.products) {
-        new Product(thisApp.data.products[productData].id, thisApp.data.products[productData]);
+      for(let productData of thisApp.data.products) {
+        new Product(productData.id, productData);
       }
     },
 
@@ -518,7 +518,7 @@
           console.log('parsedResponse', parsedResponse);
 
           // save parasedResponse as thisApp.data.products
-          parsedResponse =  thisApp.data.products;
+          thisApp.data.products = parsedResponse;
           console.log(parsedResponse);
           
           // execute initMenu method
