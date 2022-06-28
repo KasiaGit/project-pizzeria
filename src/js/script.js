@@ -538,6 +538,8 @@
       prod.priceSingle = thisCartProduct.priceSingle;
       prod.name = thisCartProduct.name;
       prod.params = thisCartProduct.params;
+
+      return prod;
     }
   }
   const app = {
