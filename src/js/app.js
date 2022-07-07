@@ -1,14 +1,9 @@
   import { settings, select, classNames } from './settings.js';
   import Product from './components/Product.js';
   import Cart from './components/Cart.js';
+  import Booking from './components/Booking.js';
 
   const app = {
-
-    // initBooking: function() {
-    //   thisApp.booking = document.querySelector(select.containerOf.booking);
-
-
-    // },
 
     initPages: function() {
       const thisApp = this;
@@ -16,9 +11,10 @@
       thisApp.pages = document.querySelector(select.containerOf.pages).children;
       thisApp.navLinks = document.querySelectorAll(select.nav.links);
 
+    
       const idFromHash = window.location.hash.replace('#/', '');
       // console.log('idFromHash', idFromHash);
-      
+
       let pageMatchingHash = thisApp.pages[0].id;
 
       for(let page of thisApp.pages) {
@@ -28,16 +24,16 @@
         }
       }
 
-      console.log('pageMatchingHash', pageMatchingHash);
+      // console.log('pageMatchingHash', pageMatchingHash);
       thisApp.activatePage(pageMatchingHash);
 
       for(let link of thisApp.navLinks) {
         link.addEventListener('click', function(event) {
-          const cklickedElement = this;
+          const clickedElement = this;
           event.preventDefault();
 
           // get page id from href attribute 
-          const id = cklickedElement.getAttribute('href').replace('#', '');
+          const id = clickedElement.getAttribute('href').replace('#', '');
 
           // run thisApp.activatePage with that id
           thisApp.activatePage(id);
@@ -109,13 +105,20 @@
       });
     },
 
+    initBooking: function(){
+      const thisApp = this;
+  
+      thisApp.BookingWidgetContainer = document.querySelector(select.containerOf.booking);
+      thisApp.booking = new Booking(thisApp.BookingWidgetContainer);
+    },
+
     init: function(){
       const thisApp = this;
 
-      // thisApp.initBooking();
       thisApp.initPages();
       thisApp.initData();
       thisApp.initCart();
+      thisApp.initBooking();
     },
   };
 
