@@ -256,7 +256,18 @@
         "starters": ["lemonWater"]
       }
     ],
-    "bookings": []
+    "bookings": [
+      {
+         "id": 1,
+         "date": "2021-01-05",
+         "hour": "12:00",
+         "table": 1,
+         "repeat": false,
+         "duration": 4,
+         "ppl": 3,
+         "starters": []
+     }
+    ]
  }
  
  

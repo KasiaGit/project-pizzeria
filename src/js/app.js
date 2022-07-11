@@ -81,16 +81,16 @@
         return rawResponse.json();
         })
       .then(function(parsedResponse) {
-        console.log('parsedResponse', parsedResponse);
+        // console.log('parsedResponse', parsedResponse);
 
       // save parasedResponse as thisApp.data.products
-      thisApp.data.products = parsedResponse;
-      console.log(parsedResponse);
+        thisApp.data.products = parsedResponse;
+      // console.log(parsedResponse);
           
       // execute initMenu method
-      thisApp.initMenu();
+        thisApp.initMenu();
       });
-      console.log('thisApp.data', JSON.stringify(thisApp.data));       
+      // console.log('thisApp.data', JSON.stringify(thisApp.data));       
     },
 
     initCart: function(){
