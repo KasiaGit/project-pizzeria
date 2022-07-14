@@ -3,17 +3,25 @@ export const select = {
     menuProduct: '#template-menu-product',
     cartProduct: '#template-cart-product',
     bookingWidget: '#template-booking-widget',
+    homePage: '#template-home-page',
   },
   containerOf: {
     menu: '#product-list',
     cart: '#cart',
     pages: '#pages',
     booking: '.booking-wrapper',
+    homePage: '.home-wrapper',
   },
   all: {
     menuProducts: '#product-list > .product',
     menuProductsActive: '#product-list > .product.active',
     formInputs: 'input, select',
+  },
+  homePage: {
+    orderLink: '.box.order',
+    bookingLink: '.box.book',
+    openingHours: '#opening-hours',
+    mainCarousel: '.splide',
   },
   menuProduct: {
     clickable: '.product__header',
@@ -75,7 +83,6 @@ export const select = {
 
 export const classNames = {
   menuProduct: {
-    // classActive: '.active',
     wrapperActive: 'active',
     imageVisible: 'active',
   },
@@ -108,6 +115,8 @@ export const settings = {
   hours: {
     open: 12,
     close: 24,
+    weekStart: 'TUE',
+    weekEnd: 'SUN',
   },
   datePicker: {
     maxDaysInFuture: 14,
@@ -129,6 +138,7 @@ export const settings = {
 };
 
 export const templates = {
+  homePage: Handlebars.compile(document.querySelector(select.templateOf.homePage).innerHTML),
   menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
   cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cartProduct).innerHTML),
   bookingWidget: Handlebars.compile(document.querySelector(select.templateOf.bookingWidget).innerHTML),
