@@ -42,6 +42,7 @@ export const select = {
   booking: {
     peopleAmount: '.people-amount',
     hoursAmount: '.hours-amount',
+    floorPlan: '.floor-plan',
     tables: '.floor-plan .table',
   },
   nav: {
@@ -111,7 +112,7 @@ export const settings = {
     url: '//localhost:3131',
     products: 'products',
     orders: 'orders',
-    bookings: 'bookigs',
+    bookings: 'bookings',
     events: 'events',
     dateStartParamKey: 'date_gte',
     dateEndParamKey: 'date_lte',
